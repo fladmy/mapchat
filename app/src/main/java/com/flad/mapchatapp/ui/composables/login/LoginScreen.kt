@@ -22,14 +22,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.flad.mapchatapp.model.repository.authrepository.eventhandler.AuthUiEvent
-import com.flad.mapchatapp.ui.navigation.MapChatScreenRoutes
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginViewModel,
     onSucessNavigate:()->Unit,
 ){
-
+    val loginViewModel: LoginViewModel = hiltViewModel()
     val email by loginViewModel.email
     val password by loginViewModel.password
 

@@ -57,7 +57,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.6")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
-
+    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
     val nav_version = "2.7.6"
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
@@ -77,4 +77,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+}
+
+kapt {
+    correctErrorTypes = true
 }
