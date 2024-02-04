@@ -1,16 +1,16 @@
 package com.flad.mapchatapp.model.repository.authrepository
 
-import android.net.http.HttpException
-import com.flad.mapchatapp.model.source.remote.api.models.auth.AuthenticationResponse
-import com.flad.mapchatapp.model.source.remote.api.models.auth.UserDTO
+import com.flad.mapchatapp.model.repository.authrepository.eventhandler.AuthEventAndErrorHandler
+import com.flad.mapchatapp.model.repository.authrepository.eventhandler.AuthUiEvent
+import com.flad.mapchatapp.model.source.remote.api.auth.AuthRemoteSource
+import com.flad.mapchatapp.model.source.remote.api.auth.models.AuthenticationResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.time.delay
 import java.io.IOException
-import java.util.UUID
 
 class AuthRepositoryMock(
+    private val authRemoteSource: AuthRemoteSource
 
 ): AuthRepository {
     private val _authenticationResponse = MutableStateFlow<AuthenticationResponse?>(null)
@@ -21,21 +21,18 @@ class AuthRepositoryMock(
         email: String,
         password: String
     ) {
-        kotlinx.coroutines.delay(2000L)
+        kotlinx.coroutines.delay(1000L)
         try {
-            _authenticationResponse.value=
-                AuthenticationResponse(
-                    accessToken = "123456",
-                    refreshToken = "123456",
-                    user = UserDTO(id = UUID.randomUUID(), email = "flad@gmail.com"))
-
-        }catch (exception: Exception){
-            //ventAndErrorHandle.emitEvent(UiEventAuthBackEnd.AuthFail("Auth Fail!"))
+            authRemoteSource.authenticateWithEmailAndPassword(email = email, password = password).collect{
+                response->
+                _authenticationResponse.value=response
+            }
 
         }catch (exception: IOException){
-            //EventAndErrorHandle.emitEvent(UiEventAuthBackEnd.AuthFail("Network Fail!"))
+            AuthEventAndErrorHandler.emitEvent(AuthUiEvent.AuthFail("Auth Fail!"))
+
         } catch (exception: RuntimeException){
-           // EventAndErrorHandle.emitEvent(UiEventAuthBackEnd.AuthFail("Something Went Wrong!"))
+            AuthEventAndErrorHandler.emitEvent(AuthUiEvent.AuthFail("Something Went Wrong!"))
         }
     }
 }

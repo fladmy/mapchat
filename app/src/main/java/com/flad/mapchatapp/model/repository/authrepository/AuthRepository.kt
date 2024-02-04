@@ -1,6 +1,6 @@
 package com.flad.mapchatapp.model.repository.authrepository
 
-import com.flad.mapchatapp.model.source.remote.api.models.auth.AuthenticationResponse
+import com.flad.mapchatapp.model.source.remote.api.auth.models.AuthenticationResponse
 import kotlinx.coroutines.flow.StateFlow
 
 interface AuthRepository {

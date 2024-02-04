@@ -1,4 +1,4 @@
-package com.flad.mapchatapp.model.source.remote.api.models.auth
+package com.flad.mapchatapp.model.source.remote.api.auth.models
 
 import java.util.UUID
 

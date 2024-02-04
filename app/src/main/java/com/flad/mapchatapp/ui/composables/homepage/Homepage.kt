@@ -1,5 +1,6 @@
 package com.flad.mapchatapp.ui.composables.homepage
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,27 +16,27 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-
-data class Conversation(
-    val id: Int,
-    val contactName: String,
-    val lastMessage: String,
-    val timestamp: String
-)
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.flad.mapchatapp.model.source.remote.api.chats.models.Conversation
+import com.flad.mapchatapp.ui.composables.login.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePage(conversations: List<Conversation> = SampleData()) {
+fun HomePage() {
+    val homePageViewModel: HomePageViewModel = hiltViewModel()
+    val conversationState by homePageViewModel.uiState.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Conversas Recentes") })
         }
     ) { innerPadding ->
-        ConversationList(conversations, Modifier.padding(innerPadding))
+        ConversationList(conversationState.conversations, Modifier.padding(innerPadding))
     }
 }
 

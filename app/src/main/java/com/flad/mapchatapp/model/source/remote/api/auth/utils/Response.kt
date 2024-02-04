@@ -1,4 +1,4 @@
-package com.flad.mapchatapp.model.source.remote.api.utils
+package com.flad.mapchatapp.model.source.remote.api.auth.utils
 
 sealed class Response<out T> {
     object Loading: Response<Nothing>()

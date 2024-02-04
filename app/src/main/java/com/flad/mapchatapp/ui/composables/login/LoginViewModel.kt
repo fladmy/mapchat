@@ -7,8 +7,8 @@ import com.flad.mapchatapp.base.BaseViewModel
 import com.flad.mapchatapp.model.repository.authrepository.AuthRepository
 import com.flad.mapchatapp.model.repository.authrepository.eventhandler.AuthEventAndErrorHandler
 import com.flad.mapchatapp.model.repository.authrepository.eventhandler.AuthUiEvent
-import com.flad.mapchatapp.model.source.remote.api.models.auth.AuthenticationResponse
-import com.flad.mapchatapp.model.source.remote.api.utils.Response
+import com.flad.mapchatapp.model.source.remote.api.auth.models.AuthenticationResponse
+import com.flad.mapchatapp.model.source.remote.api.auth.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
